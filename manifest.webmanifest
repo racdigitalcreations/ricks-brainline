@@ -1,0 +1,15 @@
+{
+  "name": "Rick's Brainline",
+  "short_name": "Brainline",
+  "description": "Text yourself anything. Find it instantly.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#e9ede8",
+  "theme_color": "#2b3fd1",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
