@@ -34,6 +34,15 @@
   --warn-bg: #fbe3df;
   --ok: #1f7a4d;
   --bubble: #2b3fd1;
+  --s-today: #2b3fd1;
+  --s-todo: #1f7a4d;
+  --s-list: #0b7480;
+  --s-gift: #b8325f;
+  --s-idea: #946200;
+  --s-link: #6a43c2;
+  --s-project: #44546a;
+  --s-note: #5d6b64;
+  --s-event: #2b3fd1;
   --font-display: "Bricolage Grotesque", "Figtree", system-ui, sans-serif;
   --font-body: "Figtree", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
@@ -42,11 +51,11 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --bg: #0f1311; --surface: #181e1b; --surface-2: #1f2622; --ink: #e6ece8; --muted: #93a29a; --line: #2c3631;
   --accent: #8d9cff; --accent-ink: #0d1030; --accent-soft: #232a52; --tag: #f2d27a; --tag-bg: #3a3118;
-  --warn: #ff8a80; --warn-bg: #3d1d1a; --ok: #6fd3a0; --bubble: #3a4bd8; color-scheme: dark } }
+  --warn: #ff8a80; --warn-bg: #3d1d1a; --ok: #6fd3a0; --bubble: #3a4bd8; --s-today: #8d9cff; --s-todo: #6fd3a0; --s-list: #5cc8d0; --s-gift: #ff8fb0; --s-idea: #f2c45a; --s-link: #b49cff; --s-project: #a7b3c4; --s-note: #93a29a; --s-event: #8d9cff; color-scheme: dark } }
 :root[data-theme="dark"] {
   --bg: #0f1311; --surface: #181e1b; --surface-2: #1f2622; --ink: #e6ece8; --muted: #93a29a; --line: #2c3631;
   --accent: #8d9cff; --accent-ink: #0d1030; --accent-soft: #232a52; --tag: #f2d27a; --tag-bg: #3a3118;
-  --warn: #ff8a80; --warn-bg: #3d1d1a; --ok: #6fd3a0; --bubble: #3a4bd8; color-scheme: dark }
+  --warn: #ff8a80; --warn-bg: #3d1d1a; --ok: #6fd3a0; --bubble: #3a4bd8; --s-today: #8d9cff; --s-todo: #6fd3a0; --s-list: #5cc8d0; --s-gift: #ff8fb0; --s-idea: #f2c45a; --s-link: #b49cff; --s-project: #a7b3c4; --s-note: #93a29a; --s-event: #8d9cff; color-scheme: dark }
 
 [hidden] { display: none !important; }
 img { max-width: 100%; }
@@ -121,7 +130,7 @@ button.chip { cursor: pointer; }
 .pill svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
 .pill.overdue { background: var(--warn-bg); color: var(--warn); }
 .pill.done { background: var(--surface-2); color: var(--ok); }
-.meta { display: flex; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
+.meta { display: flex; flex-wrap: wrap; row-gap: 2px; align-items: center; gap: 4px; font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); }
 .meta time { margin-right: auto; font-variant-numeric: tabular-nums; }
 .meta button { border: 0; background: transparent; color: var(--muted); padding: 3px 7px; border-radius: 6px; font-family: var(--font-mono); font-size: 11.5px; }
 .meta button:hover { background: var(--surface-2); color: var(--ink); }
@@ -171,6 +180,70 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
 .upnext .head { display: flex; justify-content: space-between; align-items: baseline; }
 .upnext .head button { border: 0; background: transparent; color: var(--accent); font-weight: 600; font-size: 13px; padding: 0; }
 
+/* Home hub */
+.layout.wide { grid-template-columns: minmax(0, 1fr); }
+.layout.wide aside { display: none; }
+.hello { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 16px; margin: 4px 0 18px; }
+.hello h2 { font-family: var(--font-display); font-weight: 800; font-size: clamp(26px, 4vw, 38px); letter-spacing: -0.025em; line-height: 1.05; margin: 0; text-wrap: balance; }
+.hello p { margin: 0; color: var(--muted); font-size: 14px; }
+.hello p b { color: var(--ink); font-weight: 600; }
+.panel { --pc: var(--accent); break-inside: avoid; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px 16px 12px; margin: 0 0 16px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.panel-head { display: flex; align-items: center; gap: 10px; }
+.panel-head .ico { flex: none; width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: color-mix(in srgb, var(--pc) 15%, var(--surface)); color: var(--pc); }
+.panel-head .ico svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.panel-head h3 { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+.panel-head .num { font-family: var(--font-mono); font-size: 12px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.panel-head .open { margin-left: auto; border: 0; background: transparent; color: var(--pc); font-weight: 600; font-size: 13px; padding: 4px 2px; }
+.panels { display: grid; grid-template-columns: repeat(var(--cols, 1), minmax(0, 1fr)); gap: 16px; align-items: start; }
+.panels > .pcol { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.panels .panel { margin: 0; }
+.panel.today { margin-bottom: 16px; }
+.today-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; }
+.today-grid .later { border-left: 1px solid var(--line); padding-left: 16px; }
+@media (max-width: 760px) { .today-grid { grid-template-columns: minmax(0, 1fr); } .today-grid .later { border-left: 0; padding-left: 0; border-top: 1px solid var(--line); padding-top: 10px; } }
+.mini-label { font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 4px; }
+.panel .rows { border-radius: 12px; }
+.hint-line { margin: 0; font-size: 13.5px; color: var(--muted); }
+.hint-line code { font-family: var(--font-mono); font-size: 12px; color: var(--ink); background: var(--surface-2); padding: 1px 5px; border-radius: 5px; }
+.tasks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.tasks li { display: flex; align-items: flex-start; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line); min-width: 0; }
+.tasks li:first-child { border-top: 0; }
+.tasks input[type=checkbox] { margin-top: 3px; width: 17px; height: 17px; flex: none; accent-color: var(--pc); }
+.tasks .tx { min-width: 0; overflow-wrap: anywhere; }
+.tasks .tx small { display: block; font-size: 12px; color: var(--muted); }
+.tasks .done .tx > span { text-decoration: line-through; color: var(--muted); }
+.more-link { align-self: flex-start; border: 0; background: transparent; padding: 0; color: var(--pc); font-weight: 600; font-size: 13px; }
+.listbox { background: color-mix(in srgb, var(--pc) 6%, var(--surface)); border: 1px solid color-mix(in srgb, var(--pc) 22%, var(--line)); border-radius: 14px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; }
+.listbox .lh { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.listbox .lh b { font-weight: 700; }
+.listbox .lh span { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
+.listbox form { display: flex; gap: 6px; margin-top: 4px; }
+.listbox input[type=text] { flex: 1; min-width: 0; border: 1px solid var(--line); background: var(--surface); border-radius: 9px; padding: 6px 10px; font-size: 14px; }
+.listbox .lb-actions { display: flex; gap: 10px; }
+.listbox .lb-actions button { border: 0; background: transparent; padding: 0; font-size: 12.5px; color: var(--muted); }
+.person { display: flex; flex-direction: column; gap: 4px; padding: 8px 0; border-top: 1px solid var(--line); }
+.person:first-of-type { border-top: 0; padding-top: 0; }
+.person .ph { display: flex; align-items: center; gap: 8px; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 700; font-size: 13px; background: color-mix(in srgb, var(--pc) 18%, var(--surface)); color: var(--pc); flex: none; }
+.bday { margin-left: auto; font-size: 11.5px; font-weight: 600; color: var(--pc); background: color-mix(in srgb, var(--pc) 12%, var(--surface)); border-radius: 999px; padding: 1px 8px; white-space: nowrap; }
+.person ul { margin: 0 0 0 36px; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; font-size: 14.5px; }
+.person li::before { content: "·"; color: var(--pc); font-weight: 800; margin-right: 6px; }
+.snips { display: flex; flex-direction: column; }
+.snip { display: block; text-align: left; width: 100%; border: 0; border-top: 1px solid var(--line); background: transparent; padding: 8px 0; min-width: 0; }
+.snip:first-child { border-top: 0; padding-top: 0; }
+.snip b { display: block; font-weight: 600; overflow-wrap: anywhere; }
+.snip span { display: block; font-size: 13px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+a.snip { color: inherit; text-decoration: none; }
+a.snip:hover b { color: var(--pc); }
+.proj { display: flex; justify-content: space-between; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line); width: 100%; border-left: 0; border-right: 0; border-bottom: 0; background: transparent; text-align: left; }
+.proj:first-child { border-top: 0; }
+.proj span { font-family: var(--font-mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+.back { border: 0; background: transparent; color: var(--accent); font-weight: 600; padding: 0; margin-bottom: 10px; }
+.section-top { display: flex; flex-direction: column; gap: 16px; margin-bottom: 20px; }
+.sec-chip { font-family: var(--font-mono); font-size: 11px; border-radius: 6px; padding: 0 6px; background: color-mix(in srgb, var(--pc) 13%, var(--surface)); color: var(--pc); border: 0; white-space: nowrap; }
+.move { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); background: transparent; border: 1px solid var(--line); border-radius: 6px; padding: 1px 4px; max-width: 110px; }
+.card .title-line { font-weight: 700; font-size: 15px; }
+
 /* Composer */
 .composer { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; background: linear-gradient(to top, var(--bg) 70%, transparent); padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); padding-top: 22px; }
 .composer form { max-width: 760px; margin: 0 auto; display: flex; gap: 8px; align-items: flex-end; background: var(--surface); border: 1px solid var(--line); border-radius: 22px; padding: 6px 6px 6px 16px; box-shadow: 0 6px 24px rgb(15 25 20 / .12); }
@@ -218,8 +291,8 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
       <kbd>/</kbd>
     </label>
     <div class="tabs" role="tablist">
-      <button role="tab" id="tab-feed" data-view="feed" aria-selected="true">Feed</button>
-      <button role="tab" id="tab-board" data-view="board" aria-selected="false">Board</button>
+      <button role="tab" id="tab-home" data-view="home" aria-selected="true">Home</button>
+      <button role="tab" id="tab-feed" data-view="feed" aria-selected="false">Feed</button>
       <button role="tab" id="tab-rem" data-view="agenda" aria-selected="false">Agenda<span class="count" id="dueCount"></span></button>
     </div>
     <button class="ghost" id="exportBtn" type="button">Export</button>
@@ -271,7 +344,8 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
   const S = {
     notes: new Map(),       // id -> note
     mode: "pending",        // pending | cloud | local
-    view: "feed",
+    view: (() => { try { const v = localStorage.getItem("brainline.view"); return ["home", "feed", "agenda"].includes(v) ? v : "home"; } catch (e) { return "home"; } })(),
+    section: null,
     query: "",
     tag: null,
     editing: null,
@@ -297,7 +371,7 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
       else if (k === "text") n.textContent = v;
       else n.setAttribute(k, v === true ? "" : v);
     }
-    for (const c of kids.flat()) if (c != null && c !== false) n.append(c.nodeType ? c : document.createTextNode(c));
+    for (const c of kids.flat(Infinity)) if (c != null && c !== false) n.append(c.nodeType ? c : document.createTextNode(c));
     return n;
   };
   const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
@@ -563,6 +637,8 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
       mk("remind me tomorrow at 9am to call the dentist about Thursday", 0.2 * H),
       mk("idea: newsletter that only covers stuff that happened 10 years ago this week #side-project", 1.5 * H),
       mk("buy:\n- oat milk\n- coffee filters\n- AA batteries", 3 * H, { items: [{ t: "oat milk", d: true }, { t: "coffee filters", d: false }, { t: "AA batteries", d: false }] }),
+      mk("gift idea for Mom: the cozy robe from Target", 20 * H),
+      mk("call the plumber about the kitchen leak", 22 * H),
       mk("git stash push -m \"wip\" -- src/   saves only that folder #dev", 26 * H),
       mk("Great talk on habit loops https://www.youtube.com/@AndrewHubermanLab #learn", 28 * H),
     ];
@@ -600,7 +676,12 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
 
   const clock = () => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.innerHTML = '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>'; return s; };
 
+  function stripVoiceFooter(t) {
+    const i = t.search(/\n\s*(To respond to this text message|YOUR ACCOUNT\s*<https:\/\/voice\.google\.com)/i);
+    return i >= 0 ? t.slice(0, i).trim() : t;
+  }
   function bodyText(n) {
+    if (n.source === "text" && typeof n.text === "string") n = { ...n, text: stripVoiceFooter(n.text) };
     // hide checklist lines from the body (they render as checkboxes)
     if (!n.items || !n.items.length) return n.text;
     return n.text.split("\n").filter(l => !/^\s*(?:[-*•]|\[( |x)?\])\s+/i.test(l)).join("\n").trim();
@@ -655,9 +736,18 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
       }, clock(), n.done ? `Done · ${n.remTitle || "Reminder"}` : `${overdue ? "Overdue · " : ""}${dueLabel(n.due)}`));
     }
     const confirming = S.confirmDel === n.id;
+    const g = filing(n);
+    const moveSel = n.example ? null : (() => {
+      const sel = el("select", { class: "move", "aria-label": "Move to section", id: "mv-" + n.id });
+      for (const [k, v] of Object.entries(SECTIONS)) { const o = el("option", { value: k }, v.one); if (k === g.section) o.selected = true; sel.append(o); }
+      sel.addEventListener("change", () => moveTo(n, sel.value));
+      return sel;
+    })();
     kids.push(el("div", { class: "meta" },
       n.example ? el("span", { class: "badge" }, "Example") : null,
+      g.section !== "note" ? el("span", { class: "sec-chip", style: `--pc:var(--s-${g.section})` }, SECTIONS[g.section].one + (g.person ? " · " + g.person : g.list ? " · " + g.list : g.project ? " · " + g.project : "")) : null,
       el("time", { datetime: new Date(n.created).toISOString(), title: new Date(n.created).toLocaleString() }, fmtTime(n.created) + (n.edited ? " · edited" : "")),
+      moveSel,
       n.example ? null : el("button", { type: "button", onclick: () => persist({ ...n, pinned: !n.pinned }) }, n.pinned ? "Unpin" : "Pin"),
       n.example ? null : el("button", { type: "button", onclick: () => { S.editing = n.id; render(); } }, "Edit"),
       n.example ? null : el("button", { type: "button", class: confirming ? "danger" : "", onclick: () => {
@@ -685,7 +775,8 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
     $("#countLabel").textContent = real.length ? `${real.length} note${real.length === 1 ? "" : "s"}` : "no notes yet";
     const dueNow = real.filter(n => n.due && !n.done && n.due < Date.now()).length;
     $("#dueCount").textContent = dueNow ? String(dueNow) : "";
-    document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === S.view)));
+    document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-selected", String(b.dataset.view === S.view || (S.view === "section" && b.dataset.view === "home"))));
+    $(".layout").classList.toggle("wide", S.view !== "feed");
 
     // tags
     const counts = new Map();
@@ -697,16 +788,17 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
     });
 
     const main = $("#main"); main.replaceChildren();
-    if (usingExamples && !S.query && !S.tag) {
+    if (usingExamples && !S.query && !S.tag && S.view !== "agenda") {
       main.append(el("div", { class: "banner" }, el("strong", {}, "Text yourself anything."), el("span", {}, "These are example notes. Send your first one below and they'll disappear.")));
     }
     if (S.tag || S.query) {
       main.append(el("p", { class: "section-label" }, `${notes.length} result${notes.length === 1 ? "" : "s"}${S.tag ? " in #" + S.tag : ""}${S.query ? ` for “${S.query}”` : ""}`));
     }
 
-    if (S.view === "feed" && !S.tag && !S.query) renderUpNext(main, real);
-    if (S.view === "feed") renderFeed(main, notes);
-    else if (S.view === "board") renderBoard(main, notes);
+    if ((S.view === "home" || S.view === "section") && (S.tag || S.query)) { S.view = "feed"; return render(); }
+    if (S.view === "home") renderHome(main, all);
+    else if (S.view === "section") renderSection(main, all);
+    else if (S.view === "feed") { if (!S.tag && !S.query) renderUpNext(main, real); renderFeed(main, notes); }
     else renderAgenda(main, notes);
     S.fresh.clear();
   }
@@ -854,6 +946,274 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
     }
   }
 
+  // ---------- filing: which Home section a note belongs to ----------
+  const SECTIONS = {
+    todo: { label: "To-dos", one: "To-do" },
+    list: { label: "Lists", one: "List" },
+    gift: { label: "Gift ideas", one: "Gift idea" },
+    idea: { label: "Ideas", one: "Idea" },
+    link: { label: "Read & watch", one: "Link" },
+    project: { label: "Projects", one: "Project" },
+    event: { label: "Plans", one: "Plan" },
+    note: { label: "Inbox", one: "Note" },
+  };
+  const ICONS = {
+    today: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    todo: '<rect x="3.5" y="3.5" width="17" height="17" rx="4"/><path d="m8 12 3 3 5-6"/>',
+    list: '<path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1"/><circle cx="4.5" cy="12" r="1"/><circle cx="4.5" cy="18" r="1"/>',
+    gift: '<rect x="3" y="8" width="18" height="5" rx="1"/><path d="M5 13v7h14v-7M12 8v12M12 8c-1.5-3.5-6-4-6-1.5S10 8 12 8zm0 0c1.5-3.5 6-4 6-1.5S14 8 12 8z"/>',
+    idea: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2V16h5v-.1c0-.8.4-1.5 1-2A6 6 0 0 0 12 3z"/>',
+    link: '<path d="M10 14a4.5 4.5 0 0 0 6.4 0l3-3a4.5 4.5 0 0 0-6.4-6.4l-1 1"/><path d="M14 10a4.5 4.5 0 0 0-6.4 0l-3 3a4.5 4.5 0 0 0 6.4 6.4l1-1"/>',
+    project: '<path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    note: '<path d="M4 13h4l1.5 3h5L16 13h4"/><path d="M5.5 5h13L21 13v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5z"/>',
+    event: '<rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M8 3v4M16 3v4M3.5 10h17"/>',
+  };
+  const icon = k => { const s = document.createElementNS("http://www.w3.org/2000/svg", "svg"); s.setAttribute("viewBox", "0 0 24 24"); s.innerHTML = ICONS[k] || ICONS.note; return s; };
+  const cap = w => w ? w.charAt(0).toUpperCase() + w.slice(1) : w;
+
+  // Gemini fills section/list/person/project in the sync script; until then (or without it) keyword rules decide.
+  function filing(n) {
+    if (n.section && SECTIONS[n.section]) return { section: n.section, list: n.list || "", person: n.person || "", project: n.project || "", title: n.title || "" };
+    const text = bodyText(n), t = text.toLowerCase(), tags = n.tags || [];
+    const first = (text.split("\n")[0] || "").replace(/^\s*[a-z]+\s*:\s*/i, "").trim();
+    let m;
+    if (/\bgifts?\b|\bpresent for\b|\bgift idea/.test(t) || tags.includes("gift")) {
+      m = text.match(/\bfor\s+([A-Z][\w'-]+)/) || text.match(/^\s*gift(?: idea)?s?\s*(?:for)?\s*([A-Z][\w'-]+)\s*:/i);
+      return { section: "gift", person: m ? cap(m[1].replace(/'s$/, "")) : "", list: "", project: "", title: first };
+    }
+    if (tags.includes("shopping") || /^\s*(buy|shop|shopping|groceries|grocery)\b/i.test(text)) return { section: "list", list: "Shopping", person: "", project: "", title: "Shopping" };
+    if ((n.items || []).length && /\b(list|pack|packing)\b/i.test(text)) return { section: "list", list: cap(first.replace(/\blist\b/i, "").trim()) || "List", person: "", project: "", title: first };
+    if (tags.includes("todo") || /^\s*(todo|to do|to-do|need to|call|email|text|pay|schedule|fix|finish|post|send|book|order|pick up)\b/i.test(text)) return { section: "todo", list: "", person: "", project: "", title: first };
+    if (n.due) return { section: "event", list: "", person: "", project: "", title: n.remTitle || first };
+    if (tags.includes("idea")) return { section: "idea", list: "", person: "", project: "", title: first };
+    if (/https?:\/\/\S+/.test(text) && text.replace(/https?:\/\/\S+/g, "").replace(/#\S+/g, "").trim().length < 60) return { section: "link", list: "", person: "", project: "", title: first };
+    return { section: "note", list: "", person: "", project: "", title: first };
+  }
+  const titleOf = n => (n.title || n.remTitle || filing(n).title || bodyText(n).split("\n")[0] || "Untitled").replace(/\s+#[\p{L}\p{N}_-]+/gu, "").trim();
+
+  function moveTo(n, section) {
+    const g = filing(n);
+    const upd = { ...n, section, sectionLocked: true };
+    if (section === "list" && !upd.list) upd.list = titleOf(n) || "List";
+    if (section !== "list") upd.list = "";
+    if (section === "gift" && !upd.person) upd.person = g.person || "";
+    persist(upd);
+    toast("Moved", `Filed under ${SECTIONS[section].label}.`, 2500);
+  }
+
+  // list helpers: keep the "- item" lines in the text in step with the checklist
+  function addToList(n, item) {
+    const t = item.trim(); if (!t) return;
+    persist({ ...n, items: [...(n.items || []), { t, d: false }], text: (n.text || "") + "\n- " + t });
+  }
+  function clearChecked(n) {
+    const gone = new Set((n.items || []).filter(i => i.d).map(i => i.t.toLowerCase()));
+    if (!gone.size) return;
+    const text = (n.text || "").split("\n").filter(l => { const m = l.match(/^\s*(?:[-*•]|\[( |x)?\])\s+(.+)/i); return !(m && gone.has(m[2].trim().toLowerCase())); }).join("\n");
+    persist({ ...n, items: (n.items || []).filter(i => !i.d), text });
+  }
+  function toggleItem(n, idx, on) {
+    if (n.example) { n.items = n.items.map((x, j) => j === idx ? { ...x, d: on } : x); render(); return; }
+    persist({ ...n, items: n.items.map((x, j) => j === idx ? { ...x, d: on } : x) });
+  }
+
+  // ---------- Home ----------
+  function panel(key, title, count, body, opts = {}) {
+    return el("section", { class: "panel" + (opts.cls ? " " + opts.cls : ""), style: `--pc:var(--s-${opts.color || key})` },
+      el("div", { class: "panel-head" },
+        el("span", { class: "ico", "aria-hidden": "true" }, icon(opts.icon || key)),
+        el("h3", {}, title),
+        count != null ? el("span", { class: "num" }, String(count)) : null,
+        opts.open === false ? null : el("button", { class: "open", type: "button", onclick: opts.onOpen || (() => openSection(key)) }, opts.openLabel || "Open")),
+      body);
+  }
+  function openSection(key) { S.view = "section"; S.section = key; render(); window.scrollTo(0, 0); }
+  const hint = (...parts) => el("p", { class: "hint-line" }, parts.map(p => typeof p === "string" ? p : el("code", {}, p.c)));
+
+  function greeting() {
+    const h = new Date().getHours();
+    return h < 5 ? "Up late, Rick" : h < 12 ? "Good morning, Rick" : h < 17 ? "Good afternoon, Rick" : "Good evening, Rick";
+  }
+
+  function openTodos(all) {
+    const out = [];
+    for (const n of all) {
+      const g = filing(n);
+      if (g.section !== "todo") continue;
+      if ((n.items || []).length) n.items.forEach((it, i) => { if (!it.d) out.push({ kind: "item", n, i, label: it.t, sub: titleOf(n), project: g.project, at: n.due || n.created }); });
+      else if (!n.done) out.push({ kind: "note", n, label: titleOf(n), sub: [g.project, n.due ? dueLabel(n.due) : ""].filter(Boolean).join(" · "), project: g.project, at: n.due || n.created });
+    }
+    return out.sort((a, b) => (a.n.due ? 0 : 1) - (b.n.due ? 0 : 1) || a.at - b.at);
+  }
+  function todoRow(x) {
+    const id = `td-${x.n.id}-${x.kind === "item" ? x.i : "n"}`;
+    const cb = el("input", { type: "checkbox", id });
+    cb.addEventListener("change", () => {
+      if (x.kind === "item") toggleItem(x.n, x.i, cb.checked);
+      else if (!x.n.example) persist({ ...x.n, done: cb.checked });
+    });
+    return el("li", {}, cb, el("label", { class: "tx", for: id }, el("span", {}, x.label), x.sub && x.sub !== x.label ? el("small", {}, x.sub) : null));
+  }
+
+  function listsOf(all) { return all.filter(n => filing(n).section === "list").sort((a, b) => (b.items || []).filter(i => !i.d).length - (a.items || []).filter(i => !i.d).length || b.created - a.created); }
+  function listBox(n, limit) {
+    const g = filing(n), items = (n.items || []).map((it, i) => ({ ...it, i }));
+    const open = items.filter(i => !i.d), done = items.filter(i => i.d);
+    const shown = limit ? open.slice(0, limit) : open.concat(done);
+    const ul = el("ul", { class: "tasks" }, shown.map(it => {
+      const id = `li-${n.id}-${it.i}`;
+      const cb = el("input", { type: "checkbox", id }); cb.checked = !!it.d;
+      cb.addEventListener("change", () => toggleItem(n, it.i, cb.checked));
+      return el("li", { class: it.d ? "done" : "" }, cb, el("label", { class: "tx", for: id }, el("span", {}, it.t)));
+    }));
+    const inp = el("input", { type: "text", id: "add-" + n.id, placeholder: `Add to ${g.list || "list"}…`, "aria-label": `Add to ${g.list || "list"}` });
+    const form = el("form", {}, inp, el("button", { class: "btn", type: "submit" }, "Add"));
+    form.addEventListener("submit", e => { e.preventDefault(); if (n.example) return; addToList(n, inp.value); });
+    return el("div", { class: "listbox" },
+      el("div", { class: "lh" }, el("b", {}, g.list || titleOf(n)), el("span", {}, `${done.length}/${items.length} done`)),
+      items.length ? ul : el("p", { class: "hint-line" }, "No items yet."),
+      limit && open.length > limit ? el("button", { class: "more-link", type: "button", onclick: () => openSection("list") }, `+${open.length - limit} more`) : null,
+      n.example ? null : form,
+      !n.example && done.length ? el("div", { class: "lb-actions" }, el("button", { type: "button", onclick: () => clearChecked(n) }, `Clear ${done.length} checked`)) : null);
+  }
+
+  function giftGroups(all) {
+    const groups = new Map();
+    for (const n of all) {
+      const g = filing(n);
+      if (g.section !== "gift") continue;
+      const who = g.person || "Someone";
+      const k = who.toLowerCase();
+      if (!groups.has(k)) groups.set(k, { who, notes: [] });
+      groups.get(k).notes.push(n);
+    }
+    const now = Date.now();
+    for (const grp of groups.values()) {
+      const first = grp.who.split(/\s+/)[0].toLowerCase();
+      const ev = S.events.filter(e => /birthday|bday|b-day/i.test(e.title) && e.title.toLowerCase().includes(first) && e.end > now).sort((a, b) => a.start - b.start)[0];
+      grp.bday = ev ? ev.start : null;
+    }
+    return [...groups.values()].sort((a, b) => (a.bday || Infinity) - (b.bday || Infinity) || b.notes.length - a.notes.length);
+  }
+  function personBlock(grp, limit) {
+    const items = grp.notes.sort((a, b) => b.created - a.created);
+    return el("div", { class: "person" },
+      el("div", { class: "ph" }, el("span", { class: "avatar", "aria-hidden": "true" }, grp.who === "Someone" ? "?" : grp.who.charAt(0).toUpperCase()), el("b", {}, grp.who),
+        grp.bday ? el("span", { class: "bday" }, `Birthday ${new Date(grp.bday).toLocaleDateString([], { month: "short", day: "numeric" })}`) : null),
+      el("ul", {}, (limit ? items.slice(0, limit) : items).map(n => el("li", {}, titleOf(n)))));
+  }
+
+  function snipList(notes, limit, asLink) {
+    return el("div", { class: "snips" }, notes.slice(0, limit || notes.length).map(n => {
+      const body = bodyText(n), url = (body.match(/https?:\/\/[^\s<>"]+/) || [])[0];
+      const rest = body.replace(/https?:\/\/\S+/g, "").replace(/\s+/g, " ").trim();
+      const title = n.title || rest.split(/[.!?\n]/)[0] || (url ? url.replace(/^https?:\/\/(www\.)?/, "").split("/")[0] : "Untitled");
+      const sub = asLink && url ? url.replace(/^https?:\/\/(www\.)?/, "") : (rest !== title ? rest : dayLabel(n.created));
+      if (asLink && url) return el("a", { class: "snip", href: url, target: "_blank", rel: "noopener noreferrer" }, el("b", {}, title), el("span", {}, sub));
+      return el("button", { class: "snip", type: "button", onclick: () => { S.query = ""; S.view = "section"; S.section = filing(n).section; render(); } }, el("b", {}, title), el("span", {}, sub));
+    }));
+  }
+
+  function projectGroups(all) {
+    const m = new Map();
+    for (const n of all) {
+      const g = filing(n);
+      const name = g.project || (g.section === "project" ? titleOf(n) : "");
+      if (!name) continue;
+      const k = name.toLowerCase();
+      if (!m.has(k)) m.set(k, { name, notes: [], open: 0, last: 0 });
+      const p = m.get(k);
+      p.notes.push(n); p.last = Math.max(p.last, n.created);
+      if (g.section === "todo") p.open += (n.items || []).length ? n.items.filter(i => !i.d).length : (n.done ? 0 : 1);
+    }
+    return [...m.values()].sort((a, b) => b.last - a.last);
+  }
+
+  function renderToday(all, wide) {
+    const now = Date.now(), today = startOfDay(now), tomorrow = addDays(today, 1);
+    const real = all.filter(n => !n.example);
+    const t = itemsForDay(today, real), tm = itemsForDay(tomorrow, real);
+    const overdue = real.filter(n => n.due && !n.done && n.due < today);
+    const left = el("div", {},
+      el("p", { class: "mini-label" }, new Date().toLocaleDateString([], { weekday: "long", month: "long", day: "numeric" })),
+      t.allDay.length ? el("div", { class: "alldays" }, t.allDay.map(e => el("span", { class: "ad", style: `--c:${safeColor(e.color)}` }, e.title))) : null,
+      t.list.length || overdue.length ? el("div", { class: "rows" }, overdue.map(n => remRow(n, true)), t.list.map(x => x.kind === "event" ? eventRow(x.e, today) : remRow(x.n))) :
+        el("p", { class: "hint-line" }, S.calSources ? "Nothing on the calendar today." : "Your calendar shows here once the Google sync is running."));
+    const right = el("div", { class: "later" },
+      el("p", { class: "mini-label" }, "Tomorrow"),
+      tm.allDay.length ? el("div", { class: "alldays" }, tm.allDay.map(e => el("span", { class: "ad", style: `--c:${safeColor(e.color)}` }, e.title))) : null,
+      tm.list.length ? el("div", { class: "rows" }, tm.list.slice(0, 4).map(x => x.kind === "event" ? eventRow(x.e, tomorrow) : remRow(x.n))) : el("p", { class: "hint-line" }, "Nothing scheduled yet."));
+    return panel("today", "Today", null, el("div", { class: "today-grid" }, left, right), { cls: "today", open: true, openLabel: "Agenda", onOpen: () => { S.view = "agenda"; render(); window.scrollTo(0, 0); } });
+  }
+
+  function renderHome(main, all) {
+    if (S.mode === "pending") return emptyState(main, "Loading your hub…", "");
+    const live = all;
+    const todos = openTodos(live), lists = listsOf(live), gifts = giftGroups(live);
+    const byS = k => live.filter(n => filing(n).section === k).sort((a, b) => b.created - a.created);
+    const ideas = byS("idea"), links = byS("link"), inbox = byS("note"), projects = projectGroups(live);
+    const today = startOfDay(Date.now());
+    const evToday = S.events.filter(e => e.start < addDays(today, 1) && e.end > Math.max(Date.now(), today)).length;
+    const overdue = live.filter(n => n.due && !n.done && n.due < Date.now() && !n.example).length;
+
+    main.append(el("div", { class: "hello" },
+      el("h2", {}, greeting()),
+      el("p", {}, el("b", {}, String(evToday)), ` event${evToday === 1 ? "" : "s"} left today · `, el("b", {}, String(todos.length)), ` to-do${todos.length === 1 ? "" : "s"}`,
+        overdue ? [" · ", el("b", { style: "color:var(--warn)" }, String(overdue)), " overdue"] : null)));
+    main.append(renderToday(live));
+
+    const P = [];
+    P.push(panel("todo", "To-dos", todos.length,
+      todos.length ? [el("ul", { class: "tasks" }, todos.slice(0, 7).map(todoRow)), todos.length > 7 ? el("button", { class: "more-link", type: "button", onclick: () => openSection("todo") }, `+${todos.length - 7} more`) : null]
+        : hint("Nothing to do. Text something like ", { c: "call the plumber about the leak" }, ".")));
+    P.push(panel("list", "Lists", lists.length,
+      lists.length ? [lists.slice(0, 3).map(n => listBox(n, 5)), lists.length > 3 ? el("button", { class: "more-link", type: "button", onclick: () => openSection("list") }, `${lists.length - 3} more list${lists.length - 3 === 1 ? "" : "s"}`) : null]
+        : hint("Start one with ", { c: "buy: milk, eggs, coffee" }, " and new items will join it.")));
+    P.push(panel("gift", "Gift ideas", gifts.reduce((s, g) => s + g.notes.length, 0),
+      gifts.length ? gifts.slice(0, 4).map(g => personBlock(g, 3)) : hint("Try ", { c: "gift idea for Mom: the cozy robe from Target" }, ".")));
+    P.push(panel("idea", "Ideas", ideas.length, ideas.length ? snipList(ideas, 5) : hint("Start with ", { c: "idea:" }, " and it lands here.")));
+    P.push(panel("link", "Read & watch", links.length, links.length ? snipList(links, 5, true) : hint("Send yourself any link to save it for later.")));
+    P.push(panel("project", "Projects", projects.length,
+      projects.length ? el("div", {}, projects.slice(0, 6).map(p => el("button", { class: "proj", type: "button", onclick: () => { S.query = p.name; S.view = "feed"; $("#q").value = p.name; render(); } },
+        el("b", {}, p.name), el("span", {}, `${p.notes.length} note${p.notes.length === 1 ? "" : "s"}${p.open ? ` · ${p.open} open` : ""}`))))
+        : hint("Mention a client or project in a note and Gemini groups them here.")));
+    P.push(panel("note", "Inbox", inbox.length, inbox.length ? snipList(inbox, 5) : hint("Anything that doesn't fit elsewhere shows up here.")));
+    // Place each panel in the currently shortest column, so the columns end up even.
+    const wrap = el("div", { class: "panels" });
+    main.append(wrap);
+    const ncol = Math.max(1, Math.min(3, Math.floor((main.clientWidth + 16) / (300 + 16))));
+    wrap.style.setProperty("--cols", ncol);
+    const cols = Array.from({ length: ncol }, () => wrap.appendChild(el("div", { class: "pcol" })));
+    for (const pnl of P) cols.reduce((a, b) => (b.offsetHeight < a.offsetHeight ? b : a)).append(pnl);
+  }
+  let lastCols = 0;
+  window.addEventListener("resize", () => {
+    if (S.view !== "home") return;
+    const n = Math.max(1, Math.min(3, Math.floor(($("#main").clientWidth + 16) / 316)));
+    if (n !== lastCols) { lastCols = n; render(); }
+  });
+
+  function renderSection(main, all) {
+    const key = S.section || "note";
+    const notes = all.filter(n => filing(n).section === key).sort((a, b) => b.created - a.created);
+    main.append(el("button", { class: "back", type: "button", onclick: () => { S.view = "home"; S.section = null; render(); } }, "← Home"));
+    const top = el("div", { class: "section-top" });
+    if (key === "todo") {
+      const todos = openTodos(all);
+      top.append(panel("todo", "To-dos", todos.length, todos.length ? el("ul", { class: "tasks" }, todos.map(todoRow)) : hint("All done."), { open: false }));
+    } else if (key === "list") {
+      top.append(panel("list", "Lists", notes.length, notes.length ? notes.map(n => listBox(n, 0)) : hint("No lists yet."), { open: false }));
+    } else if (key === "gift") {
+      const g = giftGroups(all);
+      top.append(panel("gift", "Gift ideas", notes.length, g.length ? g.map(x => personBlock(x, 0)) : hint("No gift ideas yet."), { open: false }));
+    } else {
+      top.append(el("div", { class: "hello" }, el("h2", {}, SECTIONS[key].label), el("p", {}, `${notes.length} note${notes.length === 1 ? "" : "s"}`)));
+    }
+    main.append(top);
+    if (notes.length) main.append(el("h2", { class: "section-label" }, "Notes"), el("div", { class: "cards" }, notes.map(card)));
+    else if (!["todo", "list", "gift"].includes(key)) emptyState(main, "Nothing here yet", "Notes Gemini files here, or that you move here, will show up.");
+  }
+
   // ---------- toasts & reminder checker ----------
   function toast(title, msg, ms = 6000) {
     const t = el("div", { class: "toast", role: "status" }, el("div", {}, el("b", {}, title), msg), el("button", { type: "button", "aria-label": "Dismiss", onclick: () => t.remove() }, "✕"));
@@ -892,7 +1252,7 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
     const n = { id: uid(), created: Date.now(), ...parseNote(v), pinned: false, done: false, fired: false };
     S.fresh.add(n.id);
     input.value = ""; autosize(); updatePreview();
-    if (S.view === "agenda" && !n.due) S.view = "feed";
+    if (S.view === "agenda" && !n.due) S.view = "home";
     persist(n);
     if (n.due) toast("Reminder set", `${n.remTitle} — ${dueLabel(n.due)}`, 4000);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -900,7 +1260,11 @@ details.done-list summary { cursor: pointer; font-family: var(--font-mono); font
 
   // ---------- header controls ----------
   $("#q").addEventListener("input", e => { S.query = e.target.value; render(); });
-  document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { S.view = b.dataset.view; render(); }));
+  document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+    S.view = b.dataset.view; S.section = null;
+    try { localStorage.setItem("brainline.view", S.view); } catch (e) {}
+    render(); window.scrollTo(0, 0);
+  }));
   document.addEventListener("keydown", e => {
     if (e.key === "/" && !/INPUT|TEXTAREA/.test(document.activeElement.tagName)) { e.preventDefault(); $("#q").focus(); }
   });
