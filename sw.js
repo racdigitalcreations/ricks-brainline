@@ -1,5 +1,5 @@
 // Keeps the app shell available offline. Notes themselves sync through Firebase's own offline cache.
-const CACHE = "brainline-v3";
+const CACHE = "brainline-v5";
 const SHELL = ["./", "index.html", "config.js", "manifest.webmanifest", "icons/icon.svg", "icons/apple-touch-icon.png"];
 self.addEventListener("install", e => { e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting())); });
 self.addEventListener("activate", e => {
